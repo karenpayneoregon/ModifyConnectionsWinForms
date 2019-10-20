@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DataConnectionLibrary;
+using SqlServerUtilititesLibrary;
 
 namespace WindowsFormsApp1
 {
@@ -141,6 +144,50 @@ namespace WindowsFormsApp1
             // Important, needs to be done to recognize the change
             ConfigurationManager.RefreshSection("connectionStrings");
 
+        }
+
+        private bool _working = false;
+        private async void button3_Click(object sender, EventArgs e)
+        {
+            if (_working)
+            {
+                MessageBox.Show("Working");
+                return;
+                
+            }
+            var builder = new SqlConnectionStringBuilder
+            {
+                ConnectionString = Properties.Settings.Default.NorthWind
+            };
+
+            _working = true;
+            var ops = new Helpers();
+            var result = await ops.SqlServerIsAvailable(builder.DataSource).ConfigureAwait(true);
+            
+            _working = false;
+
+        }
+
+        private async void button4_Click(object sender, EventArgs e)
+        {
+            
+
+            //var builder = new SqlConnectionStringBuilder
+            //{
+            //    ConnectionString = Properties.Settings.Default.NorthWind
+            //};
+            //Console.WriteLine(builder.DataSource);
+
+            var ops = new Helpers();
+            var result = await ops.ServerNames().ConfigureAwait(true);
+            if (result.Count >0)
+            {
+                result.ForEach(name => Console.WriteLine($"'{name}'"));
+            }
+            else
+            {
+                Console.WriteLine("Done");
+            }
         }
     }
 }
