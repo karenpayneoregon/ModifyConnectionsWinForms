@@ -1,0 +1,1 @@
+﻿Contains methods to assist with asserting if SQL-Server is running and if a server is available.

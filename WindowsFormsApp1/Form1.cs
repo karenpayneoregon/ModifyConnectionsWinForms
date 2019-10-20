@@ -189,5 +189,41 @@ namespace WindowsFormsApp1
                 Console.WriteLine("Done");
             }
         }
+        private SqlConnection _connection = new SqlConnection();
+        private void button5_Click(object sender, EventArgs e)
+        {
+            using (var cn = new SqlConnection())
+            {
+                cn.ConnectionString = "Data Source=KARENS-PC;" +
+                                      "Initial Catalog=NorthWind;" + 
+                                      "Integrated Security=True";
+
+                var selectStatement = "SELECT FirstName, LastName " + 
+                                      "FROM Customers " + 
+                                      "WHERE ID = @Identifier";
+
+                using (var cmd = new SqlCommand() {Connection = cn, CommandText = selectStatement})
+                {
+                    cmd.Parameters.AddWithValue("@Identifier", 100);
+
+                    cn.Open();
+
+                    var reader = cmd.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        reader.Read();
+
+                        string firstName = reader.GetString(0);
+                        string lastName = reader.GetString(1);
+
+
+                    }
+
+                }
+
+
+            }
+        }
     }
 }
