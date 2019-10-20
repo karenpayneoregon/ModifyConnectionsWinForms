@@ -5,7 +5,7 @@ Primarily for server based databases e.g. SQL-Server.
 
 An accompanying [repository](https://github.com/karenpayneoregon/MicrosoftConnectionDialog) for using the database connection dialog which resides in Visual Studio IDE at runtime.
 
-TechNet article location
+TechNet article [location](https://social.technet.microsoft.com/wiki/contents/articles/53379.c-working-with-sql-server-connection.aspx)
 
 ![Figure 1](ConnectionStrings1/assets/ConnectionSelectionAndChange.jpg)
 
